@@ -54,9 +54,8 @@ if __name__ == '__main__':
     st.write(description)
 
     instruction = """
-        Upload an orchid image. The image will be fed
-        into the CNN model and the output will be 
-        displayed on the screen.
+        Upload an orchid image. The image will be fed into the CNN model and the 
+        output will be displayed on the screen.
         """
     file = st.file_uploader(instruction)
 
