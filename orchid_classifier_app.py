@@ -4,13 +4,13 @@ from tensorflow import image as img
 from tensorflow import squeeze
 import matplotlib.pylab as plt
 import numpy as np
-import os
 
 @st.cache()
 def load_label_list(
-    path: str = 'dataset_test'
+    path: str = 'orchid species name.txt'
 ) -> list:
-    ds_label_list = [folder for folder in os.listdir(path)]
+    namelist = open("path", "r")
+    ds_label_list = namelist.read().split("\n")
     return ds_label_list
 
 @st.cache(allow_output_mutation=True)
@@ -28,7 +28,6 @@ def predict(
     prediction_temp = squeeze(prediction_temp).numpy()
     prediction_id = np.argmax(prediction_temp, axis=-1)
     prediction = ds_label_list[prediction_id]
-    prediction = prediction[2:]
     return prediction
 
 if __name__ == '__main__':
