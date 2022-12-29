@@ -8,14 +8,14 @@ import os
 
 @st.cache()
 def load_label_list(
-    path: str = 'dataset_split/test'
+    path: str = 'dataset_test'
 ) -> list:
     ds_label_list = [folder for folder in os.listdir(path)]
     return ds_label_list
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-    model = orchid_model = keras.models.load_model('saved_model/orchid_model1')
+    model = orchid_model = keras.models.load_model('orchid_model1')
     return model
     
 @st.cache()
@@ -63,12 +63,10 @@ if __name__ == '__main__':
 
     if file: 
         image = plt.imread(file)
-        # st.write(image.shape)
         # preprocess the image to fit with the CNN model
         image = img.resize(image, (224, 224))
         image = np.array(image)
         image = image.reshape(1, 224, 224, 3)/255.0
-        # st.write(image.shape)
         prediction = predict(image, ds_label_list, orchid_model)
 
     else:
