@@ -11,6 +11,6 @@ Cymbidium bicolor
 Eria floribunda
 Grammtophyllum speciosum
 Paphiopedilum callosum
-Phalaenopsis violaea
-Phaleanopsis lowii
+Phalaenopsis lowii
+Phaleanopsis violaea
 Spathoglottis plicata
