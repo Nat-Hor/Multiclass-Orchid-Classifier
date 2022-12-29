@@ -59,7 +59,7 @@ if __name__ == '__main__':
         """
     st.write(instruction)
     
-    file = st.file_uploader()
+    file = st.file_uploader("")
 
     if file: 
         image = plt.imread(file)
