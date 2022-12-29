@@ -9,7 +9,7 @@ import numpy as np
 def load_label_list(
     path: str = 'orchid species name.txt'
 ) -> list:
-    namelist = open("path", "r")
+    namelist = open(path, "r")
     ds_label_list = namelist.read().split("\n")
     return ds_label_list
 
