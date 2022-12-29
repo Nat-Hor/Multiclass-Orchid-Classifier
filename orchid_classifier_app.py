@@ -57,7 +57,9 @@ if __name__ == '__main__':
         Upload an orchid image. The image will be fed into the CNN model and the 
         output will be displayed on the screen.
         """
-    file = st.file_uploader(instruction)
+    st.write(instruction)
+    
+    file = st.file_uploader()
 
     if file: 
         image = plt.imread(file)
