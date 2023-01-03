@@ -4,13 +4,11 @@ from tensorflow import image as img
 from tensorflow import squeeze
 import matplotlib.pylab as plt
 import numpy as np
+import orchid_info
 
 @st.cache()
-def load_label_list(
-    path: str = 'orchid species name.txt'
-) -> list:
-    namelist = open(path, "r")
-    ds_label_list = namelist.read().split("\n")
+def load_label_list() -> list:
+    ds_label_list = orchid_info.orchid_namelist
     return ds_label_list
 
 @st.cache(allow_output_mutation=True)
@@ -20,7 +18,7 @@ def load_model():
     
 @st.cache()
 def predict(
-    image,     #ndarray
+    image,
     ds_label_list: list,
     orchid_model,
 ) -> str:
@@ -46,15 +44,15 @@ if __name__ == '__main__':
         Renanthera Kalsom, Vanda Miss Joaquim, Aerides houlletiana, 
         Brassavola nodosa, Bulbophyllum annandalei, Bulbophyllum lepibum, 
         Calanthe sylvatica, Coelogyne pandurata, Cymbidium bicolor, Eria floribunda, 
-        Grammtophyllum speciosum, Paphiopedilum callosum, Phalaenopsis violaea, 
-        Phaleanopsis lowii, Spathoglottis plicata. 
+        Grammtophyllum speciosum, Paphiopedilum callosum, Phalaenopsis lowii, 
+        Phaleanopsis violacea, Spathoglottis plicata. 
         Lets try it out and see how it classifies your images.
     """
     # Note that the classifier model is not 100% accurate, so it may gives wrong prediction.
     st.write(description)
 
     instruction = """
-        Upload an orchid image. The image will be fed into the CNN model and the 
+        \nUpload an orchid image. The image will be fed into the CNN model and the 
         output will be displayed on the screen.
         """
     st.write(instruction)
