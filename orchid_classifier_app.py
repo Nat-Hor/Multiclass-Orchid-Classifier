@@ -21,9 +21,9 @@ def predict(
     image,
     ds_label_list: list,
     orchid_model,
-    threshold_low=.2f,
-    threshold_high=.7f,
-) -> str, str:
+    threshold_low=.2,
+    threshold_high=.7,
+):
     prediction_temp = orchid_model.predict(image)
     prediction_temp = squeeze(prediction_temp).numpy()
     if np.max(prediction_temp) >= threshold_low:
