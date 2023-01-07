@@ -23,7 +23,7 @@ def predict(
     orchid_model,
     threshold_low=.2f,
     threshold_high=.7f,
-) -> str:
+) -> str, str:
     prediction_temp = orchid_model.predict(image)
     prediction_temp = squeeze(prediction_temp).numpy()
     if np.max(prediction_temp) >= threshold_low:
