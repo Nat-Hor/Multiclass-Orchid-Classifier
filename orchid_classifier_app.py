@@ -11,6 +11,11 @@ def load_label_list() -> list:
     ds_label_list = orchid_info.orchid_namelist
     return ds_label_list
 
+@st.cache()
+def load_description_list() -> list:
+    orchid_description_list = orchid_info.orchid_description
+    return orchid_description_list
+
 @st.cache(allow_output_mutation=True)
 def load_model():
     model = orchid_model = keras.models.load_model('orchid_model1')
@@ -20,6 +25,7 @@ def load_model():
 def predict(
     image,
     ds_label_list: list,
+    orchid_description_list: list,
     orchid_model,
     threshold_low=.2,
     threshold_high=.7,
@@ -29,7 +35,7 @@ def predict(
     if np.max(prediction_temp) >= threshold_low:
         prediction_id = np.argmax(prediction_temp, axis=-1)
         prediction = ds_label_list[prediction_id]
-        explaination_prediction = orchid_info.orchid_description[prediction_id]
+        explaination_prediction = orchid_description_list[prediction_id]
         if np.max(prediction_temp) < threshold_high:
             explaination_prediction += "\nThe system cannot detect the picture accurately, please use a clearer picture of orchid."
     else:
@@ -40,6 +46,7 @@ def predict(
 if __name__ == '__main__':
     # preparation for the web app function
     ds_label_list = load_label_list()
+    orchid_description_list = load_description_list()
     orchid_model = load_model()
     # initialize variable
     image = np.ones((1, 224, 224, 3))
@@ -75,7 +82,7 @@ if __name__ == '__main__':
         image = img.resize(image, (224, 224))
         image = np.array(image)
         image = image.reshape(1, 224, 224, 3)/255.0
-        prediction, explaination_prediction = predict(image, ds_label_list, orchid_model)
+        prediction, explaination_prediction = predict(image, ds_label_list, orchid_description_list, orchid_model)
 
     else:
         prediction = "No image file detected" 
