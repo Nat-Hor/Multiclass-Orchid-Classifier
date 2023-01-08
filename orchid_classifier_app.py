@@ -60,12 +60,12 @@ if __name__ == '__main__':
     description = """
         This application helps user to classify 16 orchid species that 
         can be found in Malaysia. The name of orchid species are :
-        Dendrobium dawn maree, Renanthera Kalsom, Papilionanthe Miss Joaquim, Aerides houlletiana, 
+        \nDendrobium dawn maree, Renanthera Kalsom, Papilionanthe Miss Joaquim, Aerides houlletiana, 
         Brassavola nodosa, Bulbophyllum annandalei, Bulbophyllum lepidum, 
         Calanthe sylvatica, Coelogyne pandurata, Cymbidium bicolor, Eria floribunda, 
         Grammtophyllum speciosum, Paphiopedilum callosum, Phalaenopsis lowii, 
         Phaleanopsis violacea, Spathoglottis plicata. 
-        Lets try it out with your orchid pictures and see how it classifies them!
+        \nLets try it out with your orchid pictures and see how it classifies them!
     """
     # Note that the classifier model is not 100% accurate, so it may gives wrong prediction.
     st.write(description)
