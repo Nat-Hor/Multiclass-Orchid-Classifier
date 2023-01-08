@@ -27,8 +27,9 @@ def predict(
     ds_label_list: list,
     orchid_description_list: list,
     orchid_model,
-    threshold_low=.2,
-    threshold_high=.7,
+    reminder,
+    threshold_low=.33,
+    threshold_high=.63,
 ):
     prediction_temp = orchid_model.predict(image)
     prediction_temp = squeeze(prediction_temp).numpy()
@@ -37,11 +38,11 @@ def predict(
         prediction = ds_label_list[prediction_id]
         explaination_prediction = orchid_description_list[prediction_id]
         if np.max(prediction_temp) < threshold_high:
-            explaination_prediction += "\nThe system cannot detect the picture accurately, please use a clearer picture of orchid."
+            reminder = True
     else:
         prediction = "-"
         explaination_prediction = "Unable to recognise the picture, please try again."
-    return prediction, explaination_prediction
+    return prediction, explaination_prediction, reminder
 
 if __name__ == '__main__':
     # preparation for the web app function
@@ -52,18 +53,19 @@ if __name__ == '__main__':
     image = np.ones((1, 224, 224, 3))
     prediction = ""
     explaination_prediction = ""
+    reminder = False
 
     st.title("Orchid classifier")
 
     description = """
         This application helps user to classify 16 orchid species that 
-        can be found in Malaysia. The name of orchid species are : Dendrobium dawn maree, 
-        Renanthera Kalsom, Papilionanthe Miss Joaquim, Aerides houlletiana, 
+        can be found in Malaysia. The name of orchid species are :
+        Dendrobium dawn maree, Renanthera Kalsom, Papilionanthe Miss Joaquim, Aerides houlletiana, 
         Brassavola nodosa, Bulbophyllum annandalei, Bulbophyllum lepidum, 
         Calanthe sylvatica, Coelogyne pandurata, Cymbidium bicolor, Eria floribunda, 
         Grammtophyllum speciosum, Paphiopedilum callosum, Phalaenopsis lowii, 
         Phaleanopsis violacea, Spathoglottis plicata. 
-        Lets try it out and see how it classifies your images.
+        Lets try it out with your orchid pictures and see how it classifies them!
     """
     # Note that the classifier model is not 100% accurate, so it may gives wrong prediction.
     st.write(description)
@@ -82,12 +84,14 @@ if __name__ == '__main__':
         image = img.resize(image, (224, 224))
         image = np.array(image)
         image = image.reshape(1, 224, 224, 3)/255.0
-        prediction, explaination_prediction = predict(image, ds_label_list, orchid_description_list, orchid_model)
+        prediction, explaination_prediction, reminder = predict(image, ds_label_list, orchid_description_list, orchid_model, reminder)
 
     else:
         prediction = "No image file detected" 
 
-    st.title("Your image :")
+    st.header("Your image :")
     st.image(image)
-    st.title("Orchid species detected : " + prediction)
+    st.header("Orchid species detected : " + prediction)
     st.write("\n" + explaination_prediction)
+    if reminder:
+        st.subheader("\nThe system cannot detect the picture accurately, please use a clearer picture of orchid.")
