@@ -18,7 +18,7 @@ def load_description_list() -> list:
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-    model = orchid_model = keras.models.load_model('orchid_model1')
+    model = orchid_model = keras.models.load_model('orchid_model1a')
     return model
     
 @st.cache()
